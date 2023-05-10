@@ -5,6 +5,7 @@ import com.kadai.omise.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// 会員Service
 @Service
 public class MemberService {
     @Autowired
@@ -15,8 +16,9 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member save(Member member) {
+    // 登録
+    public void save(Member member) {
 
-        return memberRepository.save(member);
+        memberRepository.save(member);
     }
 }

@@ -1,10 +1,10 @@
 package com.kadai.omise.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+// 会員Entity
 @Entity
 @Data
 public class Member {
