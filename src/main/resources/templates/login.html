@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/member.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">Login</h4>
+            <form class="login-form" action="/login/pro" method="post" novalidate>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+                    <div class="invalid-feedback">
+                        Please Write Email
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" name="password" required>
+                    <div class="invalid-feedback">
+                        Please Write Password
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <div class="mb-4"></div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+        <p class="mb-1">&copy; 2023 OMISE</p>
+    </footer>
+</div>
+<!-- Template Javascript -->
+<script src="../js/login.js"></script>
 </body>
+
 </html>

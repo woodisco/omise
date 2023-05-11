@@ -4,20 +4,20 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-// 会員Entity
+/* 会員Entity */
 @Entity
 @Data
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
     @NotEmpty
-    private String lastName;
+    private String lastname;
 
     @NotEmpty
-    private String firstName;
+    private String firstname;
 
     @NotEmpty
     private String email;

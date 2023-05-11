@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Sign Up</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Template Stylesheet -->
+  <link href="../css/store.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+  <div class="input-form-backgroud row">
+    <div class="input-form col-md-12 mx-auto">
+      <h4 class="mb-3">Store Register</h4>
+      <form class="join-store-form" action="/joinStore/pro" method="post" novalidate>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="invalid-feedback">
+              Please Write Name
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
+              <option value="1">飲食</option>
+              <option value="2">医療</option>
+              <option value="3">学習</option>
+              <option value="4">ペット</option>
+              <option value="5">介護</option>
+              <option value="6">ファッション</option>
+              <option value="7">ビューティー</option>
+              <option value="8">学習</option>
+              <option value="9">ペット</option>
+              <option value="10">その他</option>
+            </select>
+            <div class="invalid-feedback">
+              Please Select Category
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mb-3">
+            <label for="zipcode">ZipCode</label>
+            <input type="text" class="form-control zipcode" id="zipcode" name="zipcode" placeholder="例)8120012" required>
+            <div class="invalid-feedback">
+              Please Write Zipcode
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <button class="btn btn-dark btn-lg btn-block" id="search" type="button">住所検索</button>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="station">Station</label>
+          <select class="form-control" id="station" name="station" required>
+            <option value="1">飲食</option>
+            <option value="2">医療</option>
+            <option value="3">学習</option>
+            <option value="4">ペット</option>
+            <option value="5">介護</option>
+            <option value="6">ファッション</option>
+            <option value="7">ビューティー</option>
+            <option value="8">学習</option>
+            <option value="9">ペット</option>
+            <option value="10">その他</option>
+          </select>
+          <div class="invalid-feedback">
+            Please Write Station
+          </div>
+        </div>
+        <hr class="mb-4">
+        <div class="mb-4"></div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+  <footer class="my-3 text-center text-small">
+    <p class="mb-1">&copy; 2023 OMISE</p>
+  </footer>
+</div>
+<!-- Template Javascript -->
+<script src="../js/store.js"></script>
+</body>
+
+</html>

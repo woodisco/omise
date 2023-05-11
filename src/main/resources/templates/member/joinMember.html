@@ -1,90 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会員登録</title>
+    <title>Member Sign Up</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <style>
-    body {
-      min-height: 100vh;
-
-      background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
-      background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: linear-gradient(to top right, #d0e1f4 0%, #05223c 100%);
-    }
-
-    .input-form {
-      max-width: 680px;
-
-      margin-top: 80px;
-      padding: 32px;
-
-      background: #fff;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-    }
-
-    .btn-primary{
-      background-color: #ffc107;
-      border-color: #ffc107;
-    }
-  </style>
+    <!-- Template Stylesheet -->
+    <link href="../css/member.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="container">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">会員登録</h4>
+            <h4 class="mb-3">Member Register</h4>
             <form class="join-member-form" action="/joinMember/pro" method="post" novalidate>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="last_name">姓</label>
-                        <input type="text" class="form-control" id="last_name" required>
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required>
                         <div class="invalid-feedback">
-                            姓を入力してください。
+                            Please Write Last Name
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="first_name">名</label>
-                        <input type="text" class="form-control" id="first_name" required>
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" required>
                         <div class="invalid-feedback">
-                            名を入力してください。
+                            Please Write First Name
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
                     <div class="invalid-feedback">
-                        メールアドレスを入力してください。
+                        Please Write Email
                     </div>
                 </div>
-
                 <div class="mb-3">
-                    <label for="password">パスワード</label>
-                    <input type="text" class="form-control" id="password" required>
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" name="password" required>
                     <div class="invalid-feedback">
-                        パスワードを入力してください。
+                        Please Write Password
                     </div>
                 </div>
                 <hr class="mb-4">
                 <div class="mb-4"></div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">登録</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
             </form>
         </div>
     </div>
@@ -92,22 +61,8 @@
         <p class="mb-1">&copy; 2023 OMISE</p>
     </footer>
 </div>
-<script>
-    window.addEventListener('load', () => {
-      const forms = document.getElementsByClassName('join-member-form');
-
-      Array.prototype.filter.call(forms, (form) => {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  </script>
+<!-- Template Javascript -->
+<script src="../js/member.js"></script>
 </body>
 
 </html>
