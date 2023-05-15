@@ -1,4 +1,4 @@
-/********** Member JS **********/
+/********** Store JS **********/
 
 window.addEventListener('load', () => {
     const forms = document.getElementsByClassName('join-store-form');

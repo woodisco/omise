@@ -25,6 +25,6 @@ public class MemberController {
     public String joinMemberPro(Member member) throws Exception {
         memberService.save(member);
 
-        return "index";
+        return "redirect:/";
     }
 }

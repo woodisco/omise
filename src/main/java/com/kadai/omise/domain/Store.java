@@ -2,6 +2,7 @@ package com.kadai.omise.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,18 +19,24 @@ public class Store {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     private int category;
 
     @NotEmpty
-    private int address1;
+    private String zipcode;
 
     @NotEmpty
-    private int address2;
+    private String address1;
 
     @NotEmpty
-    private int address3;
+    private String address2;
 
     @NotEmpty
-    private int station;
+    private String route;
+
+    @NotEmpty
+    private String filename;
+
+    @NotEmpty
+    private String filepath;
 }

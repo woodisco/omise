@@ -2,20 +2,44 @@ package com.kadai.omise.controller;
 
 import com.kadai.omise.domain.LoginForm;
 import com.kadai.omise.domain.Member;
+import com.kadai.omise.domain.Store;
 import com.kadai.omise.service.HomeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /* ホームController */
 @Controller
 public class HomeController {
     @Autowired
     private HomeService homeService;
+
+    /* ホーム */
+    @GetMapping("/")
+    public String home(Model model) {
+        // お店Listを取得
+        List<Store> stores = homeService.findAllOfStore();
+        // お店数取得
+        int totalOfStore = homeService.findAllOfStore().size();
+        // 会員数取得
+        int totalOfMembers = homeService.findAllOfMember();
+        // 都市数取得
+        int totalOfAddress = homeService.findAllOfAddress();
+
+        model.addAttribute("stores", stores);
+        model.addAttribute("totalOfMembers", totalOfMembers);
+        model.addAttribute("totalOfStore", totalOfStore);
+        model.addAttribute("totalOfAddress", totalOfAddress);
+
+        return "index";
+    }
 
     /* ログイン画面へ移動 */
     @GetMapping("/login")

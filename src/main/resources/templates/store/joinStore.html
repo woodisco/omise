@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@
   <div class="input-form-backgroud row">
     <div class="input-form col-md-12 mx-auto">
       <h4 class="mb-3">Store Register</h4>
-      <form class="join-store-form" action="/joinStore/pro" method="post" novalidate>
+      <form class="join-store-form" action="/joinStore/pro" method="post"  enctype="multipart/form-data" novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="name">Name</label>
@@ -32,6 +32,7 @@
           <div class="col-md-6 mb-3">
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category" required>
+              <option value="0">---------------------------------</option>
               <option value="1">飲食</option>
               <option value="2">医療</option>
               <option value="3">学習</option>
@@ -57,25 +58,38 @@
             </div>
           </div>
           <div class="col-md-4 mb-3">
-            <button class="btn btn-dark btn-lg btn-block" id="search" type="button">住所検索</button>
+            <label for="address-search"></label>
+            <button class="btn btn-dark btn-lg btn-block" id="address-search" type="button">住所検索</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="address1">State/Province</label>
+            <input type="text" class="form-control" id="address1" name="address1" required>
+            <div class="invalid-feedback">
+              Please Write State/Province
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="address2">City</label>
+            <input type="text" class="form-control" id="address2" name="address2" required>
+            <div class="invalid-feedback">
+              Please Write City
+            </div>
           </div>
         </div>
         <div class="mb-3">
-          <label for="station">Station</label>
-          <select class="form-control" id="station" name="station" required>
-            <option value="1">飲食</option>
-            <option value="2">医療</option>
-            <option value="3">学習</option>
-            <option value="4">ペット</option>
-            <option value="5">介護</option>
-            <option value="6">ファッション</option>
-            <option value="7">ビューティー</option>
-            <option value="8">学習</option>
-            <option value="9">ペット</option>
-            <option value="10">その他</option>
-          </select>
+          <label for="route">Route</label>
+          <input type="text" class="form-control" id="route" name="route" placeholder="OO線" required>
           <div class="invalid-feedback">
-            Please Write Station
+            Please Write Route
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="file"></label>
+          <input type="file" id="file" name="file" required>
+          <div class="invalid-feedback">
+            Please Upload Image
           </div>
         </div>
         <hr class="mb-4">
@@ -88,8 +102,31 @@
     <p class="mb-1">&copy; 2023 OMISE</p>
   </footer>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Template Javascript -->
 <script src="../js/store.js"></script>
+<!-- zipcode Javascript -->
+<script>
+$(document).ready(function() {
+  // 住所検索ボタンを押すと外部apiを叩く処理が走る。
+  $('#address-search').click(function() {
+      $.getJSON('http://zipcloud.ibsnet.co.jp/api/search?callback=?',
+          {zipcode: $('#zipcode').val()}
+      )
+      .done(function(data) {
+          if (!data.results) {
+              alert('該当の住所がありません');
+          } else {
+              let result = data.results[0];
+              $('#address1').val(result.address1);
+              $('#address2').val(result.address2);
+          }
+      }).fail(function() {
+          alert('入力値を確認してください。');
+      })
+  })
+})
+</script>
 </body>
 
 </html>
