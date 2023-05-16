@@ -52,7 +52,6 @@ public class HomeController {
         totalOfCategory = homeService.findAllOfCategory();
         // 路線取得
         totalOfRoute = homeService.findAllOfRoute();
-        System.out.println("=============================" + totalOfRoute);
 
         model.addAttribute("totalOfMembers", totalOfMembers);
         model.addAttribute("totalOfStore", totalOfStore);
