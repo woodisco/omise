@@ -9,9 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/* ホームService */
+/*
+    ホームService
+*/
 @Service
 public class HomeService {
     @Autowired
@@ -20,37 +23,73 @@ public class HomeService {
     @Autowired
     private StoreRepository storeRepository;
 
-    /* ログイン */
+    /*
+        ログイン処理
+        @param String email
+        @param String password
+    */
     public Member login(String email, String password) {
         return memberRepository.findByEmail(email)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
 
-    /* お店Listを取得 */
+    /*
+        お店Listを取得
+    */
     public List<Store> findAllOfStore() {
+
         return storeRepository.findAll();
     }
 
-    /* 会員数取得 */
+    /*
+        会員数取得
+    */
     public int findAllOfMember() {
 
         return memberRepository.findAll().size();
     }
 
-    /* お店の都市数取得 */
+    /*
+        お店の都市数取得
+    */
     public int findAllOfAddress() {
 
         return storeRepository.findAllOfAddress();
     }
 
+    /*
+        お店Listを取得
+        @param Pageable pageable
+    */
     public Page<Store> list(Pageable pageable) {
 
         return storeRepository.findAll(pageable);
     }
 
-    public Page<Store> searchList(String searchName, Pageable pageable) {
+    /*
+        お店Listを取得 (検索機能処理)
+        @param String searchName
+        @param String searchRoute
+        @param Pageable pageable
+    */
+    public Page<Store> searchList(String searchName, String searchRoute, Pageable pageable) {
 
-        return storeRepository.findByName(searchName, pageable);
+        return storeRepository.findByNameOrRoute(searchName, searchRoute, pageable);
+    }
+
+    /*
+        カテゴリ取得
+    */
+    public List<String> findAllOfCategory() {
+
+        return storeRepository.findAllOfCategory();
+    }
+
+    /*
+        路線取得
+    */
+    public List<String> findAllOfRoute() {
+        return storeRepository.findAllOfRoute();
     }
 }

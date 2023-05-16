@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-/* 会員Entity */
+/*
+    会員Entity
+*/
 @Entity
 @Data
 public class Member {

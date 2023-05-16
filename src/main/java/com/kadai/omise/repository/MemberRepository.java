@@ -6,9 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/* 会員Repository */
+/*
+    会員Repository
+*/
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    // 照会 (Email)
+
+    /*
+        照会処理 (Email)
+        @param String email
+    */
     Optional<Member> findByEmail(String email);
 }

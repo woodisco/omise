@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-/* 会員Entity */
+/*
+    会員Entity
+*/
 @Entity
 @Getter
 @Setter

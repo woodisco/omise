@@ -1,10 +1,11 @@
 package com.kadai.omise.domain;
 
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-/* ログインForm */
+/*
+    ログインForm
+*/
 @Data
 public class LoginForm {
     @NotEmpty

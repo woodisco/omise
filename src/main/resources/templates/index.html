@@ -156,17 +156,13 @@
               <div class="col-md-3">
                 <select class="form-select" id="searchCategory" name="searchCategory">
                   <option selected>category</option>
-                  <option value="1">Adult 1</option>
-                  <option value="2">Adult 2</option>
-                  <option value="3">Adult 3</option>
+                  <option th:each="category : ${totalOfCategory}" th:value="${category}" th:text="${category}"></option>
                 </select>
               </div>
               <div class="col-md-3">
                 <select class="form-select" id="searchRoute" name="searchRoute">
                   <option selected>route</option>
-                  <option value="1">Adult 1</option>
-                  <option value="2">Adult 2</option>
-                  <option value="3">Adult 3</option>
+                  <option th:each="route : ${totalOfRoute}" th:value="${route}" th:text="${route}"></option>
                 </select>
               </div>
             </div>

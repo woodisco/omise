@@ -10,16 +10,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+/*
+    お店Service
+*/
 @Service
 public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
 
+    /*
+        お店登録処理
+        @param Store store
+        @param MultipartFile file
+    */
     public void save(Store store, MultipartFile file) throws IOException {
-        // route
+        // ファイル経路設定
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
-        // create filename
+        // ランダムファイル名を作成
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
 
