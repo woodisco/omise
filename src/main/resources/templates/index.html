@@ -45,7 +45,7 @@
   <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
       <div class="col-lg-3 bg-dark d-none d-lg-block">
-        <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+        <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
           <h1 class="m-0 text-primary text-uppercase">OMISE</h1>
         </a>
       </div>
@@ -73,7 +73,7 @@
         </div>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
           <a href="index.html" class="navbar-brand d-block d-lg-none">
-            <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+            <h1 class="m-0 text-primary text-uppercase">Omise</h1>
           </a>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -81,18 +81,15 @@
           <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav mr-auto py-0">
               <a href="index.html" class="nav-item nav-link active">Home</a>
-              <a href="about.html" class="nav-item nav-link">About</a>
               <a href="service.html" class="nav-item nav-link">Services</a>
-              <a href="room.html" class="nav-item nav-link">Rooms</a>
               <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                 <div class="dropdown-menu rounded-0 m-0">
+                  <a href="team.html" class="dropdown-item">My Page</a>
                   <a href="booking.html" class="dropdown-item">Booking</a>
-                  <a href="team.html" class="dropdown-item">Our Team</a>
-                  <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                  <a href="booking.html" class="dropdown-item">Support</a>
                 </div>
               </div>
-              <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
             <form  class="logout-form" action="/logout" method="post">
               <button th:if="${loginMember}" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
@@ -147,30 +144,38 @@
   <!-- Booking Start -->
   <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-      <div class="bg-white shadow" style="padding: 35px;">
+      <form class="bg-white shadow" style="padding: 35px;" action="/" method="get">
         <div class="row g-2">
           <div class="col-md-10">
             <div class="row g-2">
               <div class="col-md-3">
-                <div class="date" id="date1" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input"
-                         placeholder="store name" />
+                <div class="date"data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" id="searchName" name="searchName" placeholder="store name" />
                 </div>
               </div>
               <div class="col-md-3">
-                <select class="form-select">
+                <select class="form-select" id="searchCategory" name="searchCategory">
                   <option selected>category</option>
                   <option value="1">Adult 1</option>
                   <option value="2">Adult 2</option>
                   <option value="3">Adult 3</option>
                 </select>
               </div>
+              <div class="col-md-3">
+                <select class="form-select" id="searchRoute" name="searchRoute">
+                  <option selected>route</option>
+                  <option value="1">Adult 1</option>
+                  <option value="2">Adult 2</option>
+                  <option value="3">Adult 3</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary w-100">Search</button>
+            <button class="btn btn-primary w-100" type="submit">Search</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
   <!-- Booking End -->
@@ -181,7 +186,7 @@
         <div class="col-lg-6">
           <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
           <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase">Omise</span></h1>
-          <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+          <p class="mb-4">あなたの街のいいコト、いいトコ、発見しよう！ 街のお店情報は、今まで知らなかった、あんなお店やこんなスポットを見つけて、あなたの街をもっと楽しむためのサイトです。</p>
           <div class="row g-3 pb-4">
             <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
               <div class="border rounded p-1">
@@ -211,7 +216,7 @@
               </div>
             </div>
           </div>
-          <a class="btn btn-primary py-3 px-5 mt-2" href="">Explore More</a>
+<!--          <a class="btn btn-primary py-3 px-5 mt-2" href="">Explore More</a>-->
         </div>
         <div class="col-lg-6">
           <div class="row g-3">
@@ -241,7 +246,7 @@
         <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Omise</span></h1>
       </div>
       <div class="row g-4">
-        <div th:each="store : ${stores}" class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div th:each="store : ${list}" class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div class="room-item shadow rounded overflow-hidden">
             <div class="position-relative">
               <img class="img-fluid" th:src="${store.filepath}" alt="">
@@ -263,7 +268,7 @@
                 <small th:text="${store.address1}" class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i></small>
                 <small th:text="${store.address2}"><i class="fa fa-wifi text-primary me-2"></i></small>
               </div>
-              <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+              <p th:text=${store.content} class="text-body mb-3"></p>
               <div class="d-flex justify-content-between">
                 <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
                 <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
@@ -271,7 +276,16 @@
             </div>
           </div>
         </div>
-
+      </div>
+    </div>
+  </div>
+  <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+      <div class="text-center pagination" style="display: contents;">
+        <div th:each="page : ${#numbers.sequence(startPage, endPage)}">
+          <a th:if="${page != nowPage}" th:href="@{/(page = ${page - 1})}" th:text="${page}"></a>
+          <span class="active" th:if="${page == nowPage}" th:text="${page}"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -536,13 +550,13 @@
           <div class="bg-primary rounded p-4">
             <a href="index.html"><h1 class="text-white text-uppercase mb-3">Omise</h1></a>
             <p class="text-white mb-0">
-              Download <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Omise</a>, build a professional website for your hotel business and grab the attention of new visitors upon your site’s launch.
+              あなたの街のいいコト、いいトコ、発見しよう！ 街のお店情報は、今まで知らなかった、あんなお店やこんなスポットを見つけて、あなたの街をもっと楽しむためのサイトです。
             </p>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
           <h6 class="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-          <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+          <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Tokyo, Japan</p>
           <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
           <p class="mb-2"><i class="fa fa-envelope me-3"></i>omise-info@example.com</p>
           <div class="d-flex pt-2">
@@ -556,19 +570,12 @@
           <div class="row gy-5 g-4">
             <div class="col-md-6">
               <h6 class="section-title text-start text-primary text-uppercase mb-4">Company</h6>
-              <a class="btn btn-link" href="">About Us</a>
-              <a class="btn btn-link" href="">Contact Us</a>
               <a class="btn btn-link" href="">Privacy Policy</a>
-              <a class="btn btn-link" href="">Terms & Condition</a>
               <a class="btn btn-link" href="">Support</a>
             </div>
             <div class="col-md-6">
               <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-              <a class="btn btn-link" href="">Food & Restaurant</a>
-              <a class="btn btn-link" href="">Spa & Fitness</a>
-              <a class="btn btn-link" href="">Sports & Gaming</a>
-              <a class="btn btn-link" href="">Event & Party</a>
-              <a class="btn btn-link" href="">GYM & Yoga</a>
+              <a class="btn btn-link" href="">Booking</a>
             </div>
           </div>
         </div>
@@ -586,7 +593,6 @@
           <div class="col-md-6 text-center text-md-end">
             <div class="footer-menu">
               <a href="">Home</a>
-              <a href="">Cookies</a>
               <a href="">Help</a>
               <a href="">FQAs</a>
             </div>

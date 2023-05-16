@@ -35,6 +35,9 @@ public class Store {
     private String route;
 
     @NotEmpty
+    private String content;
+
+    @NotEmpty
     private String filename;
 
     @NotEmpty

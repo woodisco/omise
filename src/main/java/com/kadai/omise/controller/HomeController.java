@@ -7,13 +7,15 @@ import com.kadai.omise.service.HomeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /* ホームController */
 @Controller
@@ -23,9 +25,9 @@ public class HomeController {
 
     /* ホーム */
     @GetMapping("/")
-    public String home(Model model) {
-        // お店Listを取得
-        List<Store> stores = homeService.findAllOfStore();
+    public String home(Model model,
+                       @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)
+                       Pageable pageable, String searchName) {
         // お店数取得
         int totalOfStore = homeService.findAllOfStore().size();
         // 会員数取得
@@ -33,10 +35,26 @@ public class HomeController {
         // 都市数取得
         int totalOfAddress = homeService.findAllOfAddress();
 
-        model.addAttribute("stores", stores);
         model.addAttribute("totalOfMembers", totalOfMembers);
         model.addAttribute("totalOfStore", totalOfStore);
         model.addAttribute("totalOfAddress", totalOfAddress);
+
+        // ページング機能
+        Page<Store> list = null;
+        if (searchName == null) {
+            list = homeService.list(pageable);
+        } else {
+            list = homeService.searchList(searchName, pageable);
+        }
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "index";
     }
