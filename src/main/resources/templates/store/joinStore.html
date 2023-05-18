@@ -17,40 +17,34 @@
       <h4 class="mb-3">Store Register</h4>
       <form class="join-store-form" action="/joinStore/pro" method="post"  enctype="multipart/form-data" novalidate>
         <div class="row">
+          <span th:text="${checkName}" style="color: blue;"></span>
           <div class="col-md-6 mb-3">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-            <div class="invalid-feedback">
-              Please Write Name
-            </div>
+            <input type="text" class="form-control" id="name" name="name">
+            <span th:text="${valid_name}" style="color: red;"></span>
           </div>
           <div class="col-md-6 mb-3">
             <label for="category">Category</label>
-            <select class="form-control" id="category" name="category" required>
-              <option value="0">選択</option>
-              <option value="1">飲食</option>
-              <option value="2">医療</option>
-              <option value="3">学習</option>
-              <option value="4">ペット</option>
-              <option value="5">介護</option>
-              <option value="6">ファッション</option>
-              <option value="7">ビューティー</option>
-              <option value="8">学習</option>
-              <option value="9">ペット</option>
-              <option value="10">その他</option>
+            <select class="form-control" id="category" name="category">
+              <option value="飲食">飲食</option>
+              <option value="医療">医療</option>
+              <option value="学習">学習</option>
+              <option value="ペット">ペット</option>
+              <option value="介護">介護</option>
+              <option value="ファッション">ファッション</option>
+              <option value="ビューティー">ビューティー</option>
+              <option value="学習">学習</option>
+              <option value="ペット">ペット</option>
+              <option value="その他">その他</option>
             </select>
-            <div class="invalid-feedback">
-              Please Select Category
-            </div>
+            <span th:text="${valid_category}" style="color: red;"></span>
           </div>
         </div>
         <div class="row">
           <div class="col-md-8 mb-3">
             <label for="zipcode">ZipCode</label>
-            <input type="text" class="form-control zipcode" id="zipcode" name="zipcode" placeholder="例)8120012" required>
-            <div class="invalid-feedback">
-              Please Write Zipcode
-            </div>
+            <input type="text" class="form-control zipcode" id="zipcode" name="zipcode" placeholder="例)8120012">
+            <span th:text="${valid_zipcode}" style="color: red;"></span>
           </div>
           <div class="col-md-4 mb-3">
             <label for="address-search"></label>
@@ -60,39 +54,38 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="address1">State/Province</label>
-            <input type="text" class="form-control" id="address1" name="address1" required>
-            <div class="invalid-feedback">
-              Please Write State/Province
-            </div>
+            <input type="text" class="form-control" id="address1" name="address1">
+            <span th:text="${valid_address1}" style="color: red;"></span>
           </div>
           <div class="col-md-6 mb-3">
             <label for="address2">City</label>
-            <input type="text" class="form-control" id="address2" name="address2" required>
-            <div class="invalid-feedback">
-              Please Write City
-            </div>
+            <input type="text" class="form-control" id="address2" name="address2">
+            <span th:text="${valid_address2}" style="color: red;"></span>
           </div>
         </div>
         <div class="mb-3">
           <label for="route">Route</label>
-          <input type="text" class="form-control" id="route" name="route" placeholder="OO線" required>
-          <div class="invalid-feedback">
-            Please Write Route
-          </div>
+          <input type="text" class="form-control" id="route" name="route" placeholder="OO線">
+          <span th:text="${valid_route}" style="color: red;"></span>
         </div>
         <div class="mb-3">
           <label for="content">Content</label>
-          <textarea type="text" class="form-control" id="content" name="content" required></textarea>
-          <div class="invalid-feedback">
-            Please Write Content
-          </div>
+          <textarea type="text" class="form-control" id="content" name="content"></textarea>
+          <span th:text="${valid_content}" style="color: red;"></span>
         </div>
         <div class="mb-3">
           <label for="file"></label>
-          <input type="file" id="file" name="file" required>
-          <div class="invalid-feedback">
-            Please Upload Image
-          </div>
+          <input type="file" id="file" name="file" onchange="printFileName()">
+        </div>
+        <span th:text="${valid_filename}" style="color: red;"></span>
+        <div class="mb-3" style="display: none;">
+          <label for="filename">Route</label>
+          <input type="text" id="filename" name="filename">
+        </div>
+        <div class="mb-3" style="display: none;">
+          <label for="filepath">Route</label>
+          <input type="text" id="filepath" name="filepath">
+          <span th:text="${valid_filepath}" style="color: red;"></span>
         </div>
         <hr class="mb-4">
         <div class="mb-4"></div>
@@ -105,12 +98,10 @@
 <div th:replace="./layout/footer :: footer_fragment"></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Template Javascript -->
-<script src="../js/store.js"></script>
 <!-- zipcode Javascript -->
 <script>
+// 住所検索ボタンを押すと外部apiを叩く処理が走る。
 $(document).ready(function() {
-  // 住所検索ボタンを押すと外部apiを叩く処理が走る。
   $('#address-search').click(function() {
       $.getJSON('http://zipcloud.ibsnet.co.jp/api/search?callback=?',
           {zipcode: $('#zipcode').val()}
@@ -128,6 +119,14 @@ $(document).ready(function() {
       })
   })
 })
+
+// ファイルを選択時、任意的にfilename, filepathに値を入れる
+function printFileName()  {
+    const fileName = document.getElementById('file').value;
+    console.log(fileName);
+    document.getElementById("filename").value = fileName;
+    document.getElementById("filepath").value = fileName;
+}
 </script>
 </body>
 

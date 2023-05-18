@@ -24,7 +24,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
         @param String searchRoute
         @param Pageable pageable
     */
-    Page<Store> findByNameOrRoute(String searchName, String searchRoute, Pageable pageable);
+    Page<Store> findByNameOrRouteOrCategory(String searchName, String searchRoute, String searchCategory, Pageable pageable);
 
     /*
         カテゴリ取得
@@ -37,4 +37,10 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     */
     @Query(value = "SELECT DISTINCT route FROM store", nativeQuery = true)
     List<String> findAllOfRoute();
+
+    /*
+        重複バリデーション処理 (name)
+        @param String email
+    */
+    boolean existsByName(String name);
 }

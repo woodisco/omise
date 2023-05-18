@@ -8,9 +8,9 @@ import lombok.Data;
 */
 @Data
 public class LoginForm {
-    @NotEmpty
-    private String Email;
+    @NotEmpty(message = "Please Write Email")
+    private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write Password")
     private String password;
 }

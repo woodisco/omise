@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
     ホームService
@@ -73,9 +76,9 @@ public class HomeService {
         @param String searchRoute
         @param Pageable pageable
     */
-    public Page<Store> searchList(String searchName, String searchRoute, Pageable pageable) {
+    public Page<Store> searchList(String searchName, String searchRoute, String searchCategory, Pageable pageable) {
 
-        return storeRepository.findByNameOrRoute(searchName, searchRoute, pageable);
+        return storeRepository.findByNameOrRouteOrCategory(searchName, searchRoute, searchCategory, pageable);
     }
 
     /*
@@ -91,5 +94,21 @@ public class HomeService {
     */
     public List<String> findAllOfRoute() {
         return storeRepository.findAllOfRoute();
+    }
+
+    /*
+        バリデーション処理
+        @param Errors errors
+    */
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            // messageはEntityで作成したこと
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+
+        return validatorResult;
     }
 }

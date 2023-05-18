@@ -13,8 +13,14 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     /*
-        照会処理 (Email)
+        照会処理 (email)
         @param String email
     */
     Optional<Member> findByEmail(String email);
+
+    /*
+        重複バリデーション処理 (email)
+        @param String email
+    */
+    boolean existsByEmail(String email);
 }

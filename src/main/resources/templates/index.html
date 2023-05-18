@@ -85,16 +85,15 @@
               <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                 <div class="dropdown-menu rounded-0 m-0">
-                  <a href="team.html" class="dropdown-item">My Page</a>
-                  <a href="booking.html" class="dropdown-item">Booking</a>
-                  <a href="booking.html" class="dropdown-item">Support</a>
+                  <a href="/member/myPage" class="dropdown-item">My Page</a>
                 </div>
               </div>
+              <a href="service.html" class="nav-item nav-link">Support</a>
             </div>
             <form  class="logout-form" action="/logout" method="post">
-              <button th:if="${loginMember}" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
+              <button th:if="${session.id}" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
             </form>
-            <a th:unless="${loginMember}" href="/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+            <a th:unless="${session.id}" href="/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
           </div>
         </nav>
       </div>

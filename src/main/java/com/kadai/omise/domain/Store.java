@@ -18,28 +18,28 @@ public class Store {
     @Column(name = "store_id")
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write Name")
     private String name;
 
-    @NotNull
-    private int category;
+    @NotEmpty(message = "Please Select Category")
+    private String category;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write Zipcode")
     private String zipcode;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write State/Province")
     private String address1;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write City")
     private String address2;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write Route")
     private String route;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Write Content")
     private String content;
 
-    @NotEmpty
+    @NotEmpty(message = "Please Upload Filename")
     private String filename;
 
     @NotEmpty
