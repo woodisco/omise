@@ -15,29 +15,25 @@
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">MyPage</h4>
-            <form class="join-member-form" action="" method="" novalidate>
+            <form class="update-member-form" action="/mypage/pro" method="post" novalidate>
+                <input type="hidden" id="id" name="id" th:value="${loginMember.id}">
                 <div class="row">
-                    <span th:text="${checkEmail}" style="color: blue;"></span>
                     <div class="col-md-6 mb-3">
                         <label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname">
-                        <span th:text="${valid_lastname}" style="color: red;"></span>
+                        <input type="text" class="form-control" id="lastname" name="lastname" th:value="${loginMember.lastname}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname">
-                        <span th:text="${valid_firstname}" style="color: red;"></span>
+                        <input type="text" class="form-control" id="firstname" name="firstname" th:value="${loginMember.firstname}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-                    <span th:text="${valid_email}" style="color: red;"></span>
+                    <input type="email" class="form-control" id="email" name="email" th:value="${loginMember.email}" readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" id="password" name="password">
-                    <span th:text="${valid_password}" style="color: red;"></span>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="password" name="password" th:value="${loginMember.password}">
                 </div>
                 <hr class="mb-4">
                 <div class="mb-4"></div>

@@ -2,6 +2,7 @@ package com.kadai.omise.controller;
 
 import com.kadai.omise.domain.Member;
 import com.kadai.omise.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Map;
 
@@ -59,15 +61,41 @@ public class MemberController {
 
         memberService.save(member);
 
-        return "redirect:/";
+        return "login";
     }
 
     /*
-        mypageへ移動
+        mypage画面へ移動
+        @param HttpSession session
+        @param Model model
     */
-    @GetMapping("/myPage")
-    public String myPage() {
+    @GetMapping("/mypage")
+    public String myPage(HttpSession session, Model model) {
 
-        return "member/myPage";
+        // ログイン出来ていない場合
+        if (session.getAttribute("id") ==  null) {
+
+            return "login";
+        }
+
+        Long loginId = (Long) session.getAttribute("id");
+
+        // 会員情報を取得
+        Member loginMember =  memberService.findById(loginId);
+        model.addAttribute("loginMember", loginMember);
+
+        return "member/mypage";
+    }
+
+    /*
+        mypage修正：会員情報修正
+        @param Member member
+    */
+    @PostMapping("/mypage/pro")
+    public String myPagePro(Member member) {
+
+        memberService.update(member);
+
+        return "index";
     }
 }

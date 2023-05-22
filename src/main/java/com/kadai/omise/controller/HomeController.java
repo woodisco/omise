@@ -122,7 +122,7 @@ public class HomeController {
             return "login";
         // ログイン情報が正しい場合
         } else {
-            session.setAttribute("id", loginMember.getEmail());
+            session.setAttribute("id", loginMember.getId());
         }
 
         return "redirect:/";

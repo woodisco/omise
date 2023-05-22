@@ -2,6 +2,7 @@ package com.kadai.omise.repository;
 
 import com.kadai.omise.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

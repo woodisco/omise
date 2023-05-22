@@ -4,6 +4,7 @@ import com.kadai.omise.domain.Member;
 import com.kadai.omise.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -49,5 +50,29 @@ public class MemberService {
         }
 
         return validatorResult;
+    }
+
+    /*
+        mypage画面の会員情報取得
+        @param Long id
+    */
+    public Member findById(Long id) {
+
+        return memberRepository.findById(id).get();
+    }
+
+    /*
+        mypage修正：会員情報修正
+        @param Member member
+    */
+    @Transactional
+    public void update(Member member) {
+        Member persistence = memberRepository.findById(member.getId()).get();
+
+        persistence.setLastname(member.getLastname());
+        persistence.setFirstname(member.getFirstname());
+        persistence.setPassword(member.getPassword());
+
+        memberRepository.save(persistence);
     }
 }
