@@ -18,6 +18,10 @@ public class Store {
     @Column(name = "store_id")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
     @NotEmpty(message = "Please Write Name")
     private String name;
 

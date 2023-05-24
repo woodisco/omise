@@ -5,39 +5,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPage</title>
+    <title>Owner Sign Up</title>
 </head>
 
 <body>
 <!-- Header -->
 <div th:replace="./layout/header :: header_fragment"></div>
 <div class="container">
-    <div class="input-form-background row">
+    <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">MyPage</h4>
-            <form class="update-member-form" action="/mypage/pro" method="post" novalidate>
-                <input type="hidden" id="id" name="id" th:value="${loginMember.id}">
+            <h4 class="mb-3">Owner Register</h4>
+            <form class="join-owner-form" action="/joinOwner/pro" method="post" novalidate>
                 <div class="row">
+                    <span th:text="${checkEmail}" style="color: blue;"></span>
                     <div class="col-md-6 mb-3">
                         <label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" th:value="${loginMember.lastname}">
+                        <input type="text" class="form-control" id="lastname" name="lastname">
+                        <span th:text="${valid_lastname}" style="color: red;"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" th:value="${loginMember.firstname}">
+                        <input type="text" class="form-control" id="firstname" name="firstname">
+                        <span th:text="${valid_firstname}" style="color: red;"></span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" th:value="${loginMember.email}" readonly>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                    <span th:text="${valid_email}" style="color: red;"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="email">Password</label>
-                    <input type="email" class="form-control" id="password" name="password" th:value="${loginMember.password}">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" name="password">
+                    <span th:text="${valid_password}" style="color: red;"></span>
                 </div>
                 <hr class="mb-4">
                 <div class="mb-4"></div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
             </form>
         </div>
     </div>

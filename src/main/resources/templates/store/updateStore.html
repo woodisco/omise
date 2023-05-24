@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/head :: head_fragment(links = ~{::link})">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Update</title>
+</head>
+
+<body>
+<!-- Header -->
+<div th:replace="./layout/header :: header_fragment"></div>
+<div class="container">
+  <div class="input-form-backgroud row">
+    <div class="input-form col-md-12 mx-auto">
+      <h4 class="mb-3">Store Update</h4>
+      <form class="update-store-form" action="" method="post"  enctype="multipart/form-data" novalidate>
+        <div class="row">
+          <span style="color: blue;"></span>
+          <div class="col-md-6 mb-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+            <span style="color: red;"></span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category">
+              <option value="飲食">飲食</option>
+              <option value="医療">医療</option>
+              <option value="学習">学習</option>
+              <option value="ペット">ペット</option>
+              <option value="介護">介護</option>
+              <option value="ファッション">ファッション</option>
+              <option value="ビューティー">ビューティー</option>
+              <option value="学習">学習</option>
+              <option value="ペット">ペット</option>
+              <option value="その他">その他</option>
+            </select>
+            <span style="color: red;"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mb-3">
+            <label for="zipcode">ZipCode</label>
+            <input type="text" class="form-control zipcode" id="zipcode" name="zipcode" placeholder="例)8120012">
+            <span style="color: red;"></span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="address-search"></label>
+            <button class="btn btn-dark btn-lg btn-block" id="address-search" type="button">住所検索</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="address1">State/Province</label>
+            <input type="text" class="form-control" id="address1" name="address1">
+            <span style="color: red;"></span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="address2">City</label>
+            <input type="text" class="form-control" id="address2" name="address2">
+            <span style="color: red;"></span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="route">Route</label>
+          <input type="text" class="form-control" id="route" name="route" placeholder="OO線">
+          <span style="color: red;"></span>
+        </div>
+        <div class="mb-3">
+          <label for="content">Content</label>
+          <textarea type="text" class="form-control" id="content" name="content"></textarea>
+          <span style="color: red;"></span>
+        </div>
+        <div class="mb-3">
+          <label for="file"></label>
+          <input type="file" id="file" name="file" onchange="printFileName()">
+        </div>
+        <span style="color: red;"></span>
+        <div class="mb-3" style="display: none;">
+          <label for="filename">Route</label>
+          <input type="text" id="filename" name="filename">
+        </div>
+        <div class="mb-3" style="display: none;">
+          <label for="filepath">Route</label>
+          <input type="text" id="filepath" name="filepath">
+          <span style="color: red;"></span>
+        </div>
+        <hr class="mb-4">
+        <div class="mb-4"></div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<div th:replace="./layout/footer :: footer_fragment"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- zipcode Javascript -->
+<script>
+// 住所検索ボタンを押すと外部apiを叩く処理が走る。
+$(document).ready(function() {
+  $('#address-search').click(function() {
+      $.getJSON('http://zipcloud.ibsnet.co.jp/api/search?callback=?',
+          {zipcode: $('#zipcode').val()}
+      )
+      .done(function(data) {
+          if (!data.results) {
+              alert('該当の住所がありません');
+          } else {
+              let result = data.results[0];
+              $('#address1').val(result.address1);
+              $('#address2').val(result.address2);
+          }
+      }).fail(function() {
+          alert('入力値を確認してください。');
+      })
+  })
+})
+
+// ファイルを選択時、任意的にfilename, filepathに値を入れる
+function printFileName()  {
+    const fileName = document.getElementById('file').value;
+    console.log(fileName);
+    document.getElementById("filename").value = fileName;
+    document.getElementById("filepath").value = fileName;
+}
+</script>
+</body>
+
+</html>

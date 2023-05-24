@@ -64,4 +64,13 @@ public class StoreController {
 
         return "redirect:/";
     }
+
+    /*
+        修正画面へ移動
+    */
+    @GetMapping("/updateStore")
+    public String updateStore() {
+
+        return "store/updateStore";
+    }
 }

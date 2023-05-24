@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Map;
 
@@ -96,6 +95,6 @@ public class MemberController {
 
         memberService.update(member);
 
-        return "index";
+        return "redirect:/";
     }
 }
