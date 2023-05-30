@@ -28,12 +28,23 @@ public class MemberService {
     }
 
     /*
-        会員登録重複バリデーション処理 (email)
-        @param Member member
+        登録重複バリデーション処理 (email)
+        @param String email
     */
     public boolean validateDuplicateEmail(String email) {
 
         return memberRepository.existsByEmail(email);
+    }
+
+    /*
+        ログイン処理
+        @param String email
+        @param String password
+    */
+    public Member login(String email, String password) {
+        return memberRepository.findByEmail(email)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
     }
 
     /*
@@ -53,7 +64,7 @@ public class MemberService {
     }
 
     /*
-        mypage画面の会員情報取得
+        mypage画面の情報取得
         @param Long id
     */
     public Member findById(Long id) {
@@ -62,7 +73,7 @@ public class MemberService {
     }
 
     /*
-        mypage修正：会員情報修正
+        mypage修正：情報修正
         @param Member member
     */
     @Transactional

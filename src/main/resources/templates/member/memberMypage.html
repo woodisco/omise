@@ -15,25 +15,25 @@
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">MyPage</h4>
-            <form class="update-member-form" action="/mypage/pro" method="post" novalidate>
-                <input type="hidden" id="id" name="id" th:value="${loginMember.id}">
+            <form class="update-member-form" action="/memberMypage/pro" method="post" novalidate>
+                <input type="hidden" name="id" th:value="${loginMember.id}">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="lastname">Last Name</label>
+                        <label>Last Name</label>
                         <input type="text" class="form-control" id="lastname" name="lastname" th:value="${loginMember.lastname}">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="firstname">First Name</label>
+                        <label>First Name</label>
                         <input type="text" class="form-control" id="firstname" name="firstname" th:value="${loginMember.firstname}">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email">Email</label>
+                    <label>Email</label>
                     <input type="email" class="form-control" id="email" name="email" th:value="${loginMember.email}" readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="email">Password</label>
-                    <input type="email" class="form-control" id="password" name="password" th:value="${loginMember.password}">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="password" name="password" th:value="${loginMember.password}">
                 </div>
                 <hr class="mb-4">
                 <div class="mb-4"></div>

@@ -1,6 +1,8 @@
 package com.kadai.omise.service;
 
+import com.kadai.omise.domain.Owner;
 import com.kadai.omise.domain.Store;
+import com.kadai.omise.repository.OwnerRepository;
 import com.kadai.omise.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,12 +25,15 @@ public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
 
+    @Autowired
+    private OwnerRepository ownerRepository;
+
     /*
         お店登録処理
         @param Store store
         @param MultipartFile file
     */
-    public void save(Store store, MultipartFile file) throws IOException {
+    public void save(Store store, MultipartFile file, Long ownerId) throws IOException {
         // ファイル経路設定
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
@@ -35,10 +41,15 @@ public class StoreService {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
 
+        // オーナーの情報を取得
+        Owner owner = ownerRepository.findById(ownerId).get();
+
         File saveFile = new File(projectPath, fileName);
         file.transferTo(saveFile);
         store.setFilename(fileName);
         store.setFilepath("/files/" + fileName);
+        store.setOwner(owner);
+        owner.putStore(store);
 
         storeRepository.save(store);
     }
@@ -61,10 +72,15 @@ public class StoreService {
 
     /*
         お店登録重複バリデーション処理 (name)
-        @param Member member
+        @param String name
     */
     public boolean validateDuplicateName(String name) {
 
         return storeRepository.existsByName(name);
+    }
+
+    public List<Store> updateStoreList(Long ownerId) {
+
+        return storeRepository.updateStoreList(ownerId);
     }
 }

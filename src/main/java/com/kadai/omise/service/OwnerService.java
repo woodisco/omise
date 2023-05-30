@@ -4,6 +4,7 @@ import com.kadai.omise.domain.Owner;
 import com.kadai.omise.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -28,11 +29,22 @@ public class OwnerService {
 
     /*
         オーナー重複バリデーション処理 (email)
-        @param Member member
+        @param String email
     */
     public boolean validateDuplicateEmail(String email) {
 
         return ownerRepository.existsByEmail(email);
+    }
+
+    /*
+        ログイン処理
+        @param String email
+        @param String password
+    */
+    public Owner login(String email, String password) {
+        return ownerRepository.findByEmail(email)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
     }
 
     /*
@@ -49,5 +61,24 @@ public class OwnerService {
         }
 
         return validatorResult;
+    }
+
+    public Owner findById(Long ownerId) {
+        return ownerRepository.findById(ownerId).get();
+    }
+
+    /*
+        mypage修正：情報修正
+        @param Owner owner
+    */
+    @Transactional
+    public void update(Owner owner) {
+        Owner persistence = ownerRepository.findById(owner.getId()).get();
+
+        persistence.setLastname(owner.getLastname());
+        persistence.setFirstname(owner.getFirstname());
+        persistence.setPassword(owner.getPassword());
+
+        ownerRepository.save(persistence);
     }
 }

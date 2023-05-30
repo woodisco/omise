@@ -84,18 +84,29 @@
               <a href="service.html" class="nav-item nav-link">Services</a>
               <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu rounded-0 m-0">
-                  <a href="/mypage" class="dropdown-item">My Page</a>
-                  <a href="/updateStore" class="dropdown-item">Store Info</a>
+                <div th:if="${session.memberId}" class="dropdown-menu rounded-0 m-0">
+                  <a href="/memberMypage" class="dropdown-item">My Page</a>
+                </div>
+                <div th:if="${session.ownerId}" class="dropdown-menu rounded-0 m-0">
+                  <a href="/ownerMypage" class="dropdown-item">My Page</a>
+                  <a href="/updateStoreList" class="dropdown-item">Store Info</a>
                 </div>
               </div>
               <a href="service.html" class="nav-item nav-link">Support</a>
             </div>
-            <form  class="logout-form" action="/logout" method="post">
-              <button th:if="${session.id}" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
-            </form>
-            <a th:unless="${session.id}" href="/login" class="btn btn-primary-owner rounded-0 py-4 px-md-5 d-none d-lg-block">OWNER LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
-            <a th:unless="${session.id}" href="/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">MEMBER LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+            <div th:if="${session.ownerId}">
+              <form class="logout-form" action="/ownerLogout" method="post">
+                <button class="btn btn-primary-owner rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">OWNER LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
+              </form>
+              <a href="/joinStore" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">STORE REGISTER<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+            <div th:unless="${session.ownerId}">
+              <form th:if="${session.memberId}" class="logout-form" action="/memberLogout" method="post">
+                <button class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="submit">MEMBER LOGOUT<i class="fa fa-arrow-right ms-3"></i></button>
+              </form>
+              <a th:unless="${session.memberId}" href="/ownerLogin" class="btn btn-primary-owner rounded-0 py-4 px-md-5 d-none d-lg-block">OWNER LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+              <a th:unless="${session.memberId}" href="/memberLogin" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">MEMBER LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
           </div>
         </nav>
       </div>

@@ -1,17 +1,11 @@
 package com.kadai.omise.controller;
 
-import com.kadai.omise.domain.LoginForm;
-import com.kadai.omise.domain.Member;
 import com.kadai.omise.domain.Store;
 import com.kadai.omise.service.HomeService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Page;
@@ -19,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /*
     ホームController
@@ -78,69 +71,5 @@ public class HomeController {
         model.addAttribute("endPage", endPage);
 
         return "index";
-    }
-
-    /*
-        ログイン画面へ移動
-    */
-    @GetMapping("/login")
-    public String login() {
-
-        return "login";
-    }
-
-    /*
-        ログイン処理
-        @param LoginForm loginForm
-        @param Errors errors
-        @param Model model
-        @param HttpServletRequest request
-    */
-    @PostMapping("/login/pro")
-    public String loginPro(@Valid LoginForm loginForm,
-                           Errors errors,
-                           Model model,
-                           HttpSession session) {
-
-        // エラーがある場合
-        if (errors.hasErrors()) {
-            // 未入力バリデーション処理
-            Map<String, String> validatorResult = homeService.validateHandling(errors);
-            for (String key : validatorResult.keySet()) {
-                model.addAttribute(key, validatorResult.get(key));
-            }
-
-            return "login";
-        }
-
-        Member loginMember = homeService.login(loginForm.getEmail(), loginForm.getPassword());
-
-        // ログイン情報が正しくない場合
-        if (loginMember == null) {
-            model.addAttribute("loginFail", "ログイン情報が正しくありません。");
-
-            return "login";
-        // ログイン情報が正しい場合
-        } else {
-            session.setAttribute("id", loginMember.getId());
-        }
-
-        return "redirect:/";
-    }
-
-    /*
-        ログアウト処理
-        @param HttpServletRequest request
-    */
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(false);
-
-        if (session != null) {
-            session.invalidate(); // session clear
-        }
-
-        return "redirect:/";
     }
 }

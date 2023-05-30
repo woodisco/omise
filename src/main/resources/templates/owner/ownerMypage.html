@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/head :: head_fragment(links = ~{::link})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage</title>
+</head>
+
+<body>
+<!-- Header -->
+<div th:replace="./layout/header :: header_fragment"></div>
+<div class="container">
+    <div class="input-form-background row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">MyPage</h4>
+            <form class="update-member-form" action="/ownerMypage/pro" method="post" novalidate>
+                <input type="hidden" name="id" th:value="${loginOwner.id}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" th:value="${loginOwner.lastname}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" th:value="${loginOwner.firstname}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="email" name="email" th:value="${loginOwner.email}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="password" name="password" th:value="${loginOwner.password}">
+                </div>
+                <hr class="mb-4">
+                <div class="mb-4"></div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<div th:replace="./layout/footer :: footer_fragment"></div>
+</body>
+
+</html>

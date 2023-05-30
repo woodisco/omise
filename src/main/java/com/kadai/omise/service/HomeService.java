@@ -1,6 +1,5 @@
 package com.kadai.omise.service;
 
-import com.kadai.omise.domain.Member;
 import com.kadai.omise.domain.Store;
 import com.kadai.omise.repository.MemberRepository;
 import com.kadai.omise.repository.StoreRepository;
@@ -25,17 +24,6 @@ public class HomeService {
 
     @Autowired
     private StoreRepository storeRepository;
-
-    /*
-        ログイン処理
-        @param String email
-        @param String password
-    */
-    public Member login(String email, String password) {
-        return memberRepository.findByEmail(email)
-                .filter(m -> m.getPassword().equals(password))
-                .orElse(null);
-    }
 
     /*
         お店Listを取得

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout/head :: head_fragment(links = ~{::link})">
+<head th:replace="./layout/head :: head_fragment(links = ~{::link})">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Owner Login</title>
 </head>
 
 <body>
 <!-- Header -->
-<div th:replace="layout/header :: header_fragment"></div>
+<div th:replace="./layout/header :: header_fragment"></div>
 <div class="container">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">Login</h4>
-            <form class="login-form" action="/login/pro" method="post" novalidate>
+            <h4 class="mb-3">Owner Login</h4>
+            <form class="login-form" action="/ownerLogin/pro" method="post" novalidate>
                 <span th:text="${loginFail}" style="color: red;"></span>
                 <div class="mb-3">
                     <label for="email">Email</label>
@@ -35,7 +35,7 @@
     </div>
 </div>
 <!-- Footer -->
-<div th:replace="layout/footer :: footer_fragment"></div>
+<div th:replace="./layout/footer :: footer_fragment"></div>
 </body>
 
 </html>

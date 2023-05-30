@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,4 +44,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
         @param String email
     */
     boolean existsByName(String name);
+
+    @Query(value = "SELECT * FROM store s where s.owner_id = :owner_id", nativeQuery = true)
+    List<Store> updateStoreList(@Param("owner_id") Long ownerId);
 }
