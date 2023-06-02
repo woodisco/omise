@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="./layout/head :: head_fragment(links = ~{::link})">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Update</title>
+</head>
+
+<body>
+<!-- Header -->
+<div th:replace="./layout/header :: header_fragment"></div>
+<div class="container-fluid text-light" data-wow-delay="0.1s" style="margin-top: 100px !important; padding-top: 0px !important;">
+  <div th:each="store : ${storeInfo}" class="container pb-5">
+    <form class="row g-5 update-store-form" action="/updateStore/pro" method="post">
+      <input type="hidden" name="id" th:value="${store.id}">
+      <div class="col-md-6 col-lg-6">
+        <div class="rounded p-4" style="padding-top: 130px !important;">
+          <h1 th:text="${store.name}" class="text-uppercase mb-3" style="color: #FEA116 !important"></h1>
+          <img th:src="${store.filepath}" style="max-width: 80%; height: auto">
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-5" style="padding-top: 50px !important;">
+        <h6 class="section-title text-start text-primary text-uppercase mb-4">Information</h6>
+        <div class="mb-3">
+          <label for="name">Name</label>
+          <input th:value="${store.name}" type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="mb-3">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category">
+            <option value="飲食" th:selected="${store.category == '飲食'}">飲食</option>
+            <option value="医療" th:selected="${store.category == '医療'}">医療</option>
+            <option value="学習" th:selected="${store.category == '学習'}">学習</option>
+            <option value="ペット" th:selected="${store.category == 'ペット'}">ペット</option>
+            <option value="介護" th:selected="${store.category == '介護'}">介護</option>
+            <option value="ファッション" th:selected="${store.category == 'ファッション'}">ファッション</option>
+            <option value="ビューティー" th:selected="${store.category == 'ビューティー'}">ビューティー</option>
+            <option value="学習" th:selected="${store.category == '学習'}">学習</option>
+            <option value="ペット" th:selected="${store.category == 'ペット'}">ペット</option>
+            <option value="その他" th:selected="${store.category == 'その他'}">その他</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mb-3">
+            <label for="zipcode">ZipCode</label>
+            <input th:value="${store.zipcode}" type="text" class="form-control zipcode" id="zipcode" name="zipcode">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="address-search"></label>
+            <button class="btn btn-dark btn-lg btn-block" id="address-search" type="button">住所検索</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="address1">State/Province</label>
+            <input th:value="${store.address1}" type="text" class="form-control" id="address1" name="address1">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="address2">City</label>
+            <input th:value="${store.address2}" type="text" class="form-control" id="address2" name="address2">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="route">Route</label>
+          <input th:value="${store.route}" type="text" class="form-control" id="route" name="route">
+        </div>
+        <div class="mb-3">
+          <label for="content">Content</label>
+          <textarea type="text" class="form-control" id="content" name="content">[[${store.content}]]</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="file"></label>
+          <input type="file" id="file" name="file" onchange="printFileName()">
+        </div>
+        <div class="mb-3" style="display: none;">
+          <label for="filename">Filename</label>
+          <input th:value="${store.filename}" type="text" id="filename" name="filename">
+        </div>
+        <div class="mb-3" style="display: none;">
+          <label for="filepath">Filepath</label>
+          <input th:value="${store.filepath}" type="text" id="filepath" name="filepath">
+        </div>
+      </div>
+      <hr class="mb-4">
+      <div class="mb-4"></div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+    </form>
+  </div>
+</div>
+<div th:replace="./layout/footer :: footer_fragment"></div>
+</body>
+
+</html>

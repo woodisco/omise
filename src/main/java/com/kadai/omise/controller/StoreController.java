@@ -1,6 +1,5 @@
 package com.kadai.omise.controller;
 
-import com.kadai.omise.domain.Owner;
 import com.kadai.omise.domain.Store;
 import com.kadai.omise.service.StoreService;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,14 +71,42 @@ public class StoreController {
 
     /*
         修正お店Listへ移動
+        @param Model model
+        @param HttpSession session
     */
     @GetMapping("/updateStoreList")
-    public String updateStore(Model model, HttpSession session) {
+    public String updateStoreList(Model model, HttpSession session) {
 
         Long ownerId = (Long) session.getAttribute("ownerId");
         List<Store> updateStoreList = storeService.updateStoreList(ownerId);
         model.addAttribute("updateStoreList", updateStoreList);
 
         return "store/updateStoreList";
+    }
+
+    /*
+        お店修正画面へ移動
+        @param Long storeId
+        @param Model model
+    */
+    @GetMapping("/updateStore/{id}")
+    public String updateStore(@PathVariable("id") Long storeId, Model model) {
+
+        Store storeInfo = storeService.findById(storeId);
+        model.addAttribute("storeInfo", storeInfo);
+
+        return "store/updateStore";
+    }
+
+    /*
+        お店修正
+        @param Store store
+    */
+    @PostMapping("/updateStore/pro")
+    public String updateStorePro(Store store) {
+
+        storeService.updateStore(store);
+
+        return "redirect:/";
     }
 }

@@ -79,8 +79,41 @@ public class StoreService {
         return storeRepository.existsByName(name);
     }
 
+    /*
+        修正お店Listへ移動
+        @param Long ownerId
+    */
     public List<Store> updateStoreList(Long ownerId) {
 
         return storeRepository.updateStoreList(ownerId);
+    }
+
+    /*
+        お店修正画面へ移動
+        @param Long storeId
+    */
+    public Store findById(Long storeId) {
+
+        return storeRepository.findById(storeId).get();
+    }
+
+    /*
+        お店修正
+        @param Store store
+    */
+    public void updateStore(Store store) {
+        Store persistence = storeRepository.findById(store.getId()).get();
+
+        persistence.setName(store.getName());
+        persistence.setCategory(store.getCategory());
+        persistence.setZipcode(store.getZipcode());
+        persistence.setAddress1(store.getAddress1());
+        persistence.setAddress2(store.getAddress2());
+        persistence.setRoute(store.getRoute());
+        persistence.setContent(store.getCategory());
+        persistence.setFilename(store.getFilename());
+        persistence.setFilepath(store.getFilepath());
+
+        storeRepository.save(persistence);
     }
 }

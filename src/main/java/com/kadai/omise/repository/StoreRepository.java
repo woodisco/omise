@@ -45,6 +45,10 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     */
     boolean existsByName(String name);
 
+    /*
+        修正お店Listへ移動
+        @param Long ownerId
+    */
     @Query(value = "SELECT * FROM store s where s.owner_id = :owner_id", nativeQuery = true)
     List<Store> updateStoreList(@Param("owner_id") Long ownerId);
 }
