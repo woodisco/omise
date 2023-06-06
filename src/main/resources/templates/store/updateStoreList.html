@@ -44,24 +44,29 @@
             <p th:text="${list.category}"  class="text-body mb-3"></p>
             <div class="d-flex justify-content-between">
               <a class="btn btn-sm btn-primary rounded py-2 px-4" th:href="@{/updateStore/{id}(id=${list.id})}">Update</a>
-<!--              <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>-->
+              <!--              <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>-->
             </div>
+<!--            <form class="d-flex justify-content-between" action="/updateStore" method="get">-->
+<!--              <input type="hidden" name="id" th:value="${list.id}">-->
+<!--              <button class="btn btn-sm btn-primary rounded py-2 px-4">Update</button>-->
+<!--&lt;!&ndash;              <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>&ndash;&gt;-->
+<!--            </form>-->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!--<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">-->
-<!--  <div class="row justify-content-center">-->
-<!--    <div class="text-center pagination" style="display: contents;">-->
-<!--      <div th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
-<!--        <a th:if="${page != nowPage}" th:href="@{/(page = ${page - 1})}" th:text="${page}"></a>-->
-<!--        <span class="active" th:if="${page == nowPage}" th:text="${page}"></span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+  <div class="row justify-content-center">
+    <div class="text-center pagination" style="display: contents;">
+      <div th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/updateStoreList(page = ${page - 1})}" th:text="${page}"></a>
+        <span class="active" th:if="${page == nowPage}" th:text="${page}"></span>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Footer -->
 <div th:replace="./layout/footer :: footer_fragment"></div>
 </body>

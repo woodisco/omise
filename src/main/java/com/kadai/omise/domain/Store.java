@@ -43,7 +43,7 @@ public class Store {
     @NotEmpty(message = "Please Write Content")
     private String content;
 
-    @NotEmpty(message = "Please Upload Filename")
+    @NotEmpty(message = "Please Upload File")
     private String filename;
 
     @NotEmpty

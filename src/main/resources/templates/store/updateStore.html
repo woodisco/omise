@@ -13,7 +13,7 @@
 <div th:replace="./layout/header :: header_fragment"></div>
 <div class="container-fluid text-light" data-wow-delay="0.1s" style="margin-top: 100px !important; padding-top: 0px !important;">
   <div th:each="store : ${storeInfo}" class="container pb-5">
-    <form class="row g-5 update-store-form" action="/updateStore/pro" method="post">
+    <form class="row g-5 update-store-form" action="/updateStore/pro" method="post" enctype="multipart/form-data" novalidate>
       <input type="hidden" name="id" th:value="${store.id}">
       <div class="col-md-6 col-lg-6">
         <div class="rounded p-4" style="padding-top: 130px !important;">
@@ -25,11 +25,11 @@
         <h6 class="section-title text-start text-primary text-uppercase mb-4">Information</h6>
         <div class="mb-3">
           <label for="name">Name</label>
-          <input th:value="${store.name}" type="text" class="form-control" id="name" name="name">
+          <input th:value="${store.name}" type="text" class="form-control" id="name" name="name" readonly>
         </div>
         <div class="mb-3">
           <label for="category">Category</label>
-          <select class="form-control" id="category" name="category">
+          <select class="form-control" id="category" name="category" required>
             <option value="飲食" th:selected="${store.category == '飲食'}">飲食</option>
             <option value="医療" th:selected="${store.category == '医療'}">医療</option>
             <option value="学習" th:selected="${store.category == '学習'}">学習</option>
@@ -41,11 +41,17 @@
             <option value="ペット" th:selected="${store.category == 'ペット'}">ペット</option>
             <option value="その他" th:selected="${store.category == 'その他'}">その他</option>
           </select>
+          <div class="invalid-feedback">
+            Please Select Category
+          </div>
         </div>
         <div class="row">
           <div class="col-md-8 mb-3">
             <label for="zipcode">ZipCode</label>
-            <input th:value="${store.zipcode}" type="text" class="form-control zipcode" id="zipcode" name="zipcode">
+            <input th:value="${store.zipcode}" type="text" class="form-control zipcode" id="zipcode" name="zipcode" required>
+            <div class="invalid-feedback">
+              Please Write Zipcode
+            </div>
           </div>
           <div class="col-md-4 mb-3">
             <label for="address-search"></label>
@@ -55,24 +61,39 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="address1">State/Province</label>
-            <input th:value="${store.address1}" type="text" class="form-control" id="address1" name="address1">
+            <input th:value="${store.address1}" type="text" class="form-control" id="address1" name="address1" required>
+            <div class="invalid-feedback">
+              Please Write State/Province
+            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="address2">City</label>
-            <input th:value="${store.address2}" type="text" class="form-control" id="address2" name="address2">
+            <input th:value="${store.address2}" type="text" class="form-control" id="address2" name="address2" required>
+            <div class="invalid-feedback">
+              Please Write City
+            </div>
           </div>
         </div>
         <div class="mb-3">
           <label for="route">Route</label>
-          <input th:value="${store.route}" type="text" class="form-control" id="route" name="route">
+          <input th:value="${store.route}" type="text" class="form-control" id="route" name="route" required>
+          <div class="invalid-feedback">
+            Please Write Route
+          </div>
         </div>
         <div class="mb-3">
           <label for="content">Content</label>
-          <textarea type="text" class="form-control" id="content" name="content">[[${store.content}]]</textarea>
+          <textarea type="text" class="form-control" id="content" name="content" required>[[${store.content}]]</textarea>
+          <div class="invalid-feedback">
+            Please Write content
+          </div>
         </div>
         <div class="mb-3">
           <label for="file"></label>
-          <input type="file" id="file" name="file" onchange="printFileName()">
+          <input type="file" id="file" name="file" onchange="printFileName()" required>
+          <div class="invalid-feedback">
+            Please Upload File
+          </div>
         </div>
         <div class="mb-3" style="display: none;">
           <label for="filename">Filename</label>
@@ -90,6 +111,25 @@
   </div>
 </div>
 <div th:replace="./layout/footer :: footer_fragment"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Template Javascript -->
+<script>
+window.addEventListener('load', () => {
+    const forms = document.getElementsByClassName('update-store-form');
+
+    Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    });
+}, false);
+</script>
 </body>
 
 </html>

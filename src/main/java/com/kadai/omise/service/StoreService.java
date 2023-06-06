@@ -5,6 +5,8 @@ import com.kadai.omise.domain.Store;
 import com.kadai.omise.repository.OwnerRepository;
 import com.kadai.omise.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -13,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -82,10 +83,11 @@ public class StoreService {
     /*
         修正お店Listへ移動
         @param Long ownerId
+        @param Pageable pageable
     */
-    public List<Store> updateStoreList(Long ownerId) {
+    public Page<Store> updateStoreList(Long ownerId, Pageable pageable) {
 
-        return storeRepository.updateStoreList(ownerId);
+        return storeRepository.updateStoreList(ownerId, pageable);
     }
 
     /*
@@ -100,8 +102,9 @@ public class StoreService {
     /*
         お店修正
         @param Store store
+        @param MultipartFile file
     */
-    public void updateStore(Store store) {
+    public void updateStore(Store store, MultipartFile file) throws IOException {
         Store persistence = storeRepository.findById(store.getId()).get();
 
         persistence.setName(store.getName());
@@ -111,6 +114,12 @@ public class StoreService {
         persistence.setAddress2(store.getAddress2());
         persistence.setRoute(store.getRoute());
         persistence.setContent(store.getCategory());
+
+        // ファイル経路設定
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+
+        File saveFile = new File(projectPath, store.getFilename());
+        file.transferTo(saveFile);
         persistence.setFilename(store.getFilename());
         persistence.setFilepath(store.getFilepath());
 

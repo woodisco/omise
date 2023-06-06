@@ -49,6 +49,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
         修正お店Listへ移動
         @param Long ownerId
     */
-    @Query(value = "SELECT * FROM store s where s.owner_id = :owner_id", nativeQuery = true)
-    List<Store> updateStoreList(@Param("owner_id") Long ownerId);
+    @Query(value = "SELECT * FROM store where store.owner_id = :owner_id", nativeQuery = true)
+    Page<Store> updateStoreList(@Param("owner_id") Long ownerId, Pageable pageable);
 }

@@ -5,6 +5,10 @@ import com.kadai.omise.service.StoreService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 
 /*
@@ -73,13 +77,26 @@ public class StoreController {
         修正お店Listへ移動
         @param Model model
         @param HttpSession session
+        @param Pageable pageable
     */
     @GetMapping("/updateStoreList")
-    public String updateStoreList(Model model, HttpSession session) {
+    public String updateStoreList(Model model,
+                                  @PageableDefault(page = 0, size = 9, sort = "store_id", direction = Sort.Direction.DESC)
+                                  Pageable pageable, HttpSession session) {
 
         Long ownerId = (Long) session.getAttribute("ownerId");
-        List<Store> updateStoreList = storeService.updateStoreList(ownerId);
+
+        // ページング機能処理
+        Page<Store> updateStoreList = storeService.updateStoreList(ownerId, pageable);
+
+        int nowPage = updateStoreList.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, updateStoreList.getTotalPages());
+
         model.addAttribute("updateStoreList", updateStoreList);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "store/updateStoreList";
     }
@@ -90,9 +107,9 @@ public class StoreController {
         @param Model model
     */
     @GetMapping("/updateStore/{id}")
-    public String updateStore(@PathVariable("id") Long storeId, Model model) {
+    public String updateStore(@PathVariable("id") Long id, Model model) {
 
-        Store storeInfo = storeService.findById(storeId);
+        Store storeInfo = storeService.findById(id);
         model.addAttribute("storeInfo", storeInfo);
 
         return "store/updateStore";
@@ -101,11 +118,12 @@ public class StoreController {
     /*
         お店修正
         @param Store store
+        @param MultipartFile file
     */
     @PostMapping("/updateStore/pro")
-    public String updateStorePro(Store store) {
+    public String updateStorePro(Store store, MultipartFile file) throws IOException {
 
-        storeService.updateStore(store);
+        storeService.updateStore(store, file);
 
         return "redirect:/";
     }
